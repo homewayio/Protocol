@@ -1,0 +1,15 @@
+{
+    "cSpell.words": [
+        "Brotli",
+        "Flatbuffer",
+        "flatbuffers",
+        "Homeway",
+        "namepspace",
+        "Proto",
+        "websockets"
+    ],
+    "cSpell.enabled": true,
+    "cSpell.enableFiletypes": [
+        "flatbuffers"
+    ]
+}
