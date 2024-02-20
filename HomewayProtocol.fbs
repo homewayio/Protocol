@@ -27,6 +27,9 @@ enum SummonMethods:byte { Unknown=1, FastPath=2, Broadcast=3 }
 // Defines a special type of call that will be directed to the Home Assistant APIs directly.
 enum HaApiTarget:byte { None=1, Core=2 }
 
+// Defines different types of plugins, like one running as a HA container addon or running standalone.
+enum AddonTypes:byte { Unknown=1, HaContainer=2, Standalone=3 }
+
 
 //
 // Helper Tables
@@ -100,6 +103,9 @@ table HandshakeSyn {
 
   // Optional - If the connection is due to a summon, this indicates which type.
   summon_method:SummonMethods = Unknown;
+
+  // Specifies the type of addon
+  addon_type:AddonTypes = Unknown;
 }
 
 // A message that's sent in response to the handshake sync. The connection isn't established until this handshake is complete.
