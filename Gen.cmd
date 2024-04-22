@@ -9,7 +9,7 @@ popd
 del /S /Q py\*
 mkdir py
 pushd py
-..\flatc_build\flatc.exe --python ..\HomewayProtocol.fbs
+..\flatc_build\flatc.exe --python-typing --python ..\HomewayProtocol.fbs
 del /S /Q ..\..\Homeway.Addon\homeway\homeway\Proto
 xcopy .\homeway\Proto\ ..\..\Homeway.Addon\homeway\homeway\Proto\ /E/H
 popd
