@@ -9,7 +9,7 @@ namespace homeway.Proto;
 //
 
 // Indicates what type of compression is used for the data, if any.
-enum DataCompression:byte { None = 0, Brotli=1, Zlib=2 }
+enum DataCompression:byte { None = 0, Brotli=1, Zlib=2, ZStandard=3  }
 
 // Possible types of paths.
 enum PathTypes:byte { None=0, Relative=1, Absolute=2 }
@@ -106,6 +106,10 @@ table HandshakeSyn {
 
   // Specifies the type of addon
   addon_type:AddonTypes = Unknown;
+
+  // Specifies which type of compression the client wants for receiving data (other than None). Note that the client can send different types per stream.
+  // This defaults to zlib, because all clients must support at least zlib. But ideally they use zstandard if they can.
+  receive_compression_type:DataCompression = Zlib;
 }
 
 // A message that's sent in response to the handshake sync. The connection isn't established until this handshake is complete.
