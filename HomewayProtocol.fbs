@@ -28,7 +28,7 @@ enum SummonMethods:byte { Unknown=1, FastPath=2, Broadcast=3 }
 enum HaApiTarget:byte { None=1, Core=2 }
 
 // Defines different types of plugins, like one running as a HA container addon or running standalone.
-enum AddonTypes:byte { Unknown=1, HaContainer=2, Standalone=3 }
+enum AddonTypes:byte { Unknown=1, HaAddon=2, StandaloneCli=3, StandaloneDocker=4 }
 
 
 //
