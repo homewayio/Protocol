@@ -1,0 +1,90 @@
+// The namepspace must start the same as our python package. That's because
+// we bundle the output directly with the package. Some of the classes (like WebStreamMgs)
+// reference the namespace in the generated logic, and it will break if it doesn't match.
+namespace homeway.Proto;
+
+//
+// In this file we prefix fix all types with Sage, so we don't have to worry about name collisions.
+//
+
+//
+// Enums
+//
+
+// Defines different types of operations that can be performed.
+enum SageOperationTypes:byte { None=0, Listen=1, Speak=2, Chat=3, }
+
+// Possible data formats
+enum SageDataTypesFormats:byte { None=0, Text=1, Json=2, AudioPCM=3  }
+
+// Holds info about the data being sent.
+table SageDataContext {
+
+    // The audio format of the data.
+    data_type:SageDataTypesFormats;
+
+    // Sets the sample rate for formats like PCM.
+    sample_rate:uint = 0;
+
+    // Set the number of channels for formats like PCM.
+    channels:byte = 0;
+
+    // The number of bits per sample.
+    bytes_per_sample:byte = 0;
+}
+
+// The basic operation type is like an HTTP call.
+//
+// The flow is:
+//   1) Stream is opened by the client.
+//        The first message is the open message, it will contain the data_context and data. It might also be the only data to send, then is_data_transmission_done is set.
+//   2) Data is streamed up to the server until the data if fully uploaded, then is_data_transmission_done is set.
+//        If a message is sent with the is_close_msg set, the stream is closed and is done.
+//   3) The server processes the data.
+//   4) The server sends back the first data message with the data_context and data. It might also be the only data to send, then is_data_transmission_done and is_close_msg are set.
+//   5) The server streams the data until it's done, then the then is_data_transmission_done is set.
+//   6) When the stream is closed it's done.
+//   ?) An abort message can be sent from either side at any point in time, which will close the stream early.
+//        The abort message should have a status code set.
+//
+table SageStreamMessage {
+
+    // Indicates the stream this data is in reference to.
+    // All values are valid, except 0.
+    stream_id:uint = 0;
+
+    // Control messages
+    // Set on the first message to indicate the stream is opening.
+    is_open_msg:bool = false;
+
+    // Set when the upload of the data is done.
+    // This can be set in the same message as the open message.
+    is_data_transmission_done:bool = false;
+
+    // Set in a special message by either side when the stream should be closed.
+    // There should be a status code set in this message as well.
+    is_abort_msg:bool = false;
+
+    // The data for the message.
+    data:[uint8];
+
+    //
+    // First Time Data - Only sent on the first message each way.
+    //
+
+    // The type of operation to perform.
+    type:SageOperationTypes;
+
+    // This is sent on the first message each direction that includes data.
+    data_context:SageDataContext;
+
+    // Only send on the first response message
+    status_code:uint = 0;
+}
+
+// The main, root message
+table SageFiber {
+    message:SageStreamMessage;
+}
+
+root_type SageFiber;
