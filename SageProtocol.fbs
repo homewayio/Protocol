@@ -23,14 +23,17 @@ table SageDataContext {
     // The audio format of the data.
     data_type:SageDataTypesFormats;
 
-    // Sets the sample rate for formats like PCM.
+    // Optional - Sets the sample rate for formats like PCM.
     sample_rate:uint = 0;
 
-    // Set the number of channels for formats like PCM.
+    // Optional - Set the number of channels for formats like PCM.
     channels:byte = 0;
 
-    // The number of bits per sample.
+    // Optional - The number of bits per sample.
     bytes_per_sample:byte = 0;
+
+    // Optional - The language code for the data.
+    language_code:string;
 }
 
 // The basic operation type is like an HTTP call.
