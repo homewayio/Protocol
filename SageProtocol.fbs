@@ -34,6 +34,19 @@ table SageDataContext {
 
     // Optional - The language code for the data.
     language_code:string;
+
+    // Optional - If set, this is the current home context.
+    // This is a summery all all the entities and their relationships.
+    home_context:[uint8];
+    // This byte is the DataCompression enum from the main protocol.
+    home_context_compression:byte = 0;
+    home_context_original_data_size:uint = 0;
+
+    // Optional - If set, this is a json list with the state of all entities exposed.
+    states:[uint8];
+    // This byte is the DataCompression enum from the main protocol.
+    states_compression:byte = 0;
+    states_original_data_size:uint = 0;
 }
 
 // The basic operation type is like an HTTP call.
