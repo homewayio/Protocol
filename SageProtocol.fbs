@@ -96,6 +96,9 @@ table SageStreamMessage {
 
     // Only send on the first response message
     status_code:uint = 0;
+
+    // If the status is not 200, this is an optional error message that should be sent to the user.
+    error_message:string;
 }
 
 // The main, root message
