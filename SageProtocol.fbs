@@ -47,6 +47,13 @@ table SageDataContext {
     // This byte is the DataCompression enum from the main protocol.
     states_compression:byte = 0;
     states_original_data_size:uint = 0;
+
+    // Optional - If set, this is a json object that represents the live state of the system.
+    // This is like the states object, but it's goal is to be much smaller and include specific context that's useful for every model generation.
+    live_context:[uint8];
+    // This byte is the DataCompression enum from the main protocol.
+    live_context_compression:byte = 0;
+    live_context_original_data_size:uint = 0;
 }
 
 // The basic operation type is like an HTTP call.
