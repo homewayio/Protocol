@@ -55,14 +55,14 @@ table HttpInitialContext {
   // The hostname where the request came from.
   host:string;
 
-  // Optional - The IP address the request was originally from.
-  forwarded_for_ip:string;
-
   // Optional - Any http headers in the request.
   headers:[HttpHeader];
 
   // If set, this call is direct to the HA APIs, rather than to the normal http root.
   api_target:HaApiTarget = None;
+
+  // Optional - The IP address the request was originally from.
+  forwarded_for_ip:string;
 }
 
 
